@@ -1,0 +1,8 @@
+var integer nr1;
+var integer 2nr;
+nr1 = 2;
+nr2 = 5;
+if (nr1>nr2) then {
+    write(nr1);
+}
+else { write(nr2);}

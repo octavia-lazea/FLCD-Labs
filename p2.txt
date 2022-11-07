@@ -1,0 +1,7 @@
+var string a;
+var string b;
+read(a);
+read(b);
+var string c = "smth";
+c=a+b;
+write(c);

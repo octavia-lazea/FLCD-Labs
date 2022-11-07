@@ -1,0 +1,12 @@
+var integer n = 10;
+var integer nr;
+var list[n] x;
+var integer max = 0;
+for(var integer i, n)
+[ read(nr);
+x[i] = nr; ]
+for(var integer i, n)
+{ if(x[i] > max) then
+max = x[i];
+}
+write(max);

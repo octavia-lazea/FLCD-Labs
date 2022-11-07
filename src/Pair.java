@@ -25,7 +25,7 @@ public class Pair<K, V> {
 
     @Override
     public String toString() {
-        return "STEntry{" +
+        return "Pair{" +
                 "key=" + key +
                 ", value=" + value +
                 '}';
