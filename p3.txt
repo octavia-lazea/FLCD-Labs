@@ -3,7 +3,7 @@ var list[size] numbers;
 var integer max = 0;
 var integer nr;
 for(var integer i, size){
-    if(numbers[i]>max) then
+    if(numbers[i] > max) then
         max = numbers[i];
 }
 write(max);

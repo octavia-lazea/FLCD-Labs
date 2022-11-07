@@ -18,7 +18,7 @@ public class Main {
 //        System.out.println(symbolTable);
 //        System.out.println(v);
 
-        MyScanner scanner = new MyScanner("p3.txt");
+        MyScanner scanner = new MyScanner("p1.txt");
         try {
             scanner.scan();
         }catch (FileNotFoundException e){

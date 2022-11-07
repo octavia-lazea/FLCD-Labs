@@ -2,10 +2,10 @@ var integer nr1;
 var integer nr2;
 nr1 = 2;
 nr2 = 5;
-if (nr1>nr2) then {
+if (nr1 > nr2) then {
     write(nr1);
 }
 else { write(nr2);}
-if (nr1%3 == 0) then {
- nr1+=1;
+if (nr1 % 3 == 0) then {
+nr1 += 1;
 }

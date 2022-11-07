@@ -6,3 +6,6 @@ if (nr1>nr2) then {
     write(nr1);
 }
 else { write(nr2);}
+if (nr1 % 3 == 0) then {
+ nr1+=1;
+}

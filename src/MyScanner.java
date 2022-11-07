@@ -10,7 +10,7 @@ public class MyScanner {
     private PIF pif;
     private final String programFileName;
     private final ArrayList<String> reservedWords = new ArrayList<>(List.of("integer", "char", "string", "list", "read", "write", "const", "if", "then", "else", "while", "for", "var", "def", "true", "false", "and", "or", "not"));
-    private final ArrayList<String> operators = new ArrayList<>(List.of("+", "-", "*", "/", "=", "==", "<", ">", "<=", ">=", "!=", "!", "%","+=", "-="));
+    private final ArrayList<String> operators = new ArrayList<>(List.of("+", "-", "*", "/", "=", "==", "<", ">", "<=", ">=", "!=", "!", "%", "+=", "-="));
     private final ArrayList<String> separators = new ArrayList<>(List.of("(", ")", "{", "}", "[", "]", ",", ";", " ", "\n"));
 
     public MyScanner(String fileName) {
@@ -23,7 +23,9 @@ public class MyScanner {
 //        return symbolTable.getElements();
 //    }
 
-    public SymbolTable getSymbolTable(){return this.symbolTable;}
+    public SymbolTable getSymbolTable() {
+        return this.symbolTable;
+    }
 
     public String getPif() {
         return String.valueOf(this.pif);
@@ -54,27 +56,15 @@ public class MyScanner {
         Scanner scanner = new Scanner(new File(this.programFileName));
         while (scanner.hasNextLine())
             fileContent.append(scanner.nextLine()).append("\n");
-        return fileContent.toString().replace("\t", "");
+        return fileContent.toString();
     }
 
     public List<String> tokenize() throws FileNotFoundException {
         String fileContent = this.readFromFile();
         String separators = this.separators.stream().reduce("", (a, b) -> a + b);
-        List<String> tokensWithSeparators = new ArrayList<>(Collections.list(new StringTokenizer(fileContent, separators, true)).stream()
-                .map(token -> (String) token).toList());
-        for (String token : tokensWithSeparators) {
-            for (String operator : this.operators) {
-                if (token.contains(operator)) {
-                    for (int i = 0; i < token.length(); i++) {
-                        if (isIdentifier(String.valueOf(token.charAt(i)))) {
-                            if (tokensWithSeparators.contains(token))
-                                tokensWithSeparators.set(tokensWithSeparators.indexOf(token), operator);
-                        }
-                    }
-                }
-            }
-        }
-        return tokensWithSeparators;
+        // tokenize the content of the file but also keep the separators
+        return new ArrayList<>(Collections.list(new StringTokenizer(fileContent, separators, true)).stream()
+                .map(Object::toString).toList());
     }
 
     public void scan() throws FileNotFoundException {
@@ -91,7 +81,7 @@ public class MyScanner {
                 this.symbolTable.add(token);
                 int pos = this.symbolTable.getPosition(token);
                 this.pif.add(new Pair<>(token, pos));
-            } else{
+            } else {
                 System.out.println("ERROR on line " + lineNumber + ": " + token);
                 return;
             }
@@ -99,11 +89,10 @@ public class MyScanner {
         System.out.println("Lexically correct");
     }
 
-    public void writeToFile(String fileName, Object object){
-        try (PrintStream printStream = new PrintStream(fileName)){
+    public void writeToFile(String fileName, Object object) {
+        try (PrintStream printStream = new PrintStream(fileName)) {
             printStream.println(object);
-        }
-        catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
