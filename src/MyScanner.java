@@ -77,13 +77,14 @@ public class MyScanner {
 
     public void scan() throws FileNotFoundException {
         List<String> tokens = this.tokenize();
+        boolean hasError = false;
         int lineNumber = 1;
         for (String token : tokens) {
             if (token.contains("\n")) {
                 lineNumber += 1;
                 continue;
             }
-            if (this.reservedWords.contains(token) || this.operators.contains(token) || this.separators.contains(token))
+            if (isReservedWord(token) || isOperator(token) || isSeparator(token))
                 this.pif.add(new Pair<>(token, -1));
             else if (isIdentifier(token) || isConstant(token)) {
                 this.symbolTable.add(token);
@@ -91,10 +92,11 @@ public class MyScanner {
                 this.pif.add(new Pair<>(token, pos));
             } else {
                 System.out.println("ERROR on line " + lineNumber + ": " + token);
-                return;
+                hasError = true;
             }
         }
-        System.out.println("Lexically correct");
+        if (!hasError)
+            System.out.println("Lexically correct");
     }
 
     public void writeToFile(String fileName, Object object) {
