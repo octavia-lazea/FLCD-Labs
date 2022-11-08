@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 public class MyScanner {
 
-    private SymbolTable symbolTable;
-    private PIF pif;
+    private final SymbolTable symbolTable;
+    private final PIF pif;
     private final String programFileName;
     private final ArrayList<String> reservedWords = new ArrayList<>(List.of("integer", "char", "string", "list", "read", "write", "const", "if", "then", "else", "while", "for", "var", "def", "true", "false", "and", "or", "not"));
     private final ArrayList<String> operators = new ArrayList<>(List.of("+", "-", "*", "/", "=", "==", "<", ">", "<=", ">=", "!=", "!", "%", "+=", "-="));
@@ -15,13 +15,9 @@ public class MyScanner {
 
     public MyScanner(String fileName) {
         this.programFileName = fileName;
-        this.symbolTable = new SymbolTable(100);
+        this.symbolTable = new SymbolTable(50);
         this.pif = new PIF();
     }
-
-//    public ArrayList<ArrayList<String>> getSymbolTable() {
-//        return symbolTable.getElements();
-//    }
 
     public SymbolTable getSymbolTable() {
         return this.symbolTable;
@@ -31,27 +27,39 @@ public class MyScanner {
         return String.valueOf(this.pif);
     }
 
-    public boolean isNumericalConstant(String value) {
+    private boolean isNumericalConstant(String value) {
         return value.matches("^(-?[1-9][0-9]*)|0$");
     }
 
-    public boolean isCharConstant(String value) {
+    private boolean isCharConstant(String value) {
         return value.matches("^'[a-zA-Z0-9 ]'$");
     }
 
-    public boolean isStringConstant(String value) {
+    private boolean isStringConstant(String value) {
         return value.matches("^\"[a-zA-Z0-9 ]*\"$");
     }
 
-    public boolean isConstant(String value) {
+    private boolean isConstant(String value) {
         return isNumericalConstant(value) || isCharConstant(value) || isStringConstant(value);
     }
 
-    public boolean isIdentifier(String value) {
+    private boolean isIdentifier(String value) {
         return value.matches("^[a-zA-Z_]([a-zA-Z0-9_]*)$");
     }
 
-    public String readFromFile() throws FileNotFoundException {
+    private boolean isOperator(String token) {
+        return this.operators.contains(token);
+    }
+
+    private boolean isSeparator(String token) {
+        return this.separators.contains(token);
+    }
+
+    private boolean isReservedWord(String token) {
+        return this.reservedWords.contains(token);
+    }
+
+    private String readFromFile() throws FileNotFoundException {
         StringBuilder fileContent = new StringBuilder();
         Scanner scanner = new Scanner(new File(this.programFileName));
         while (scanner.hasNextLine())
@@ -59,7 +67,7 @@ public class MyScanner {
         return fileContent.toString();
     }
 
-    public List<String> tokenize() throws FileNotFoundException {
+    private List<String> tokenize() throws FileNotFoundException {
         String fileContent = this.readFromFile();
         String separators = this.separators.stream().reduce("", (a, b) -> a + b);
         // tokenize the content of the file but also keep the separators
