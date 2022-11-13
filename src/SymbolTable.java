@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class SymbolTable {
@@ -52,11 +53,20 @@ public class SymbolTable {
         return this.elements.get(pos).contains(key);
     }
 
-    public int getPosition(String key) {
+    public Pair<Integer, Integer> getPosition(String key) {
+        Pair<Integer, Integer> result = new Pair<>(-1, -1);
         int pos = hash(key);
-        if (this.elements.get(pos).contains(key))
-            return pos;
-        return -1;
+        if (this.elements.get(pos).contains(key)){
+            result.key = pos;
+            for (int i=0; i<this.elements.get(pos).size(); i++){
+                if (Objects.equals(this.elements.get(pos).get(i), key))
+                {
+                    result.value = i;
+                    return result;
+                }
+            }
+        }
+        return result;
     }
 
     @Override

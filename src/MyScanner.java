@@ -85,10 +85,10 @@ public class MyScanner {
                 continue;
             }
             if (isReservedWord(token) || isOperator(token) || isSeparator(token))
-                this.pif.add(new Pair<>(token, -1));
+                this.pif.add(new Pair<>(token, new Pair<>(-1, -1)));
             else if (isIdentifier(token) || isConstant(token)) {
                 this.symbolTable.add(token);
-                int pos = this.symbolTable.getPosition(token);
+                Pair<Integer, Integer> pos = this.symbolTable.getPosition(token);
                 this.pif.add(new Pair<>(token, pos));
             } else {
                 System.out.println("ERROR on line " + lineNumber + ": " + token);
@@ -107,5 +107,4 @@ public class MyScanner {
         }
 
     }
-
 }

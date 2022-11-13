@@ -3,13 +3,13 @@ import java.util.List;
 
 public class PIF {
 
-    private List<Pair<String, Integer>> pif;
+    private final List<Pair<String, Pair<Integer, Integer>>> pif;
 
     public PIF() {
         this.pif = new ArrayList<>();
     }
 
-    public void add(Pair<String, Integer> element) {
+    public void add(Pair<String, Pair<Integer, Integer>> element) {
         this.pif.add(element);
     }
 
@@ -20,10 +20,14 @@ public class PIF {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Pair<String, Integer> tokensPosition : this.pif) {
+        for (Pair<String, Pair<Integer, Integer>> tokensPosition : this.pif) {
             stringBuilder.append(tokensPosition.key)
                     .append(" : ")
-                    .append(tokensPosition.value)
+                    .append("[")
+                    .append(tokensPosition.value.getKey())
+                    .append(", ")
+                    .append(tokensPosition.value.getValue())
+                    .append("]")
                     .append("\n");
         }
         return stringBuilder.toString();
