@@ -9,14 +9,17 @@ public class MyScanner {
     private final SymbolTable symbolTable;
     private final PIF pif;
     private final String programFileName;
+
+    private final FiniteAutomaton finiteAutomaton;
     private final ArrayList<String> reservedWords = new ArrayList<>(List.of("integer", "char", "string", "list", "read", "write", "const", "if", "then", "else", "while", "for", "var", "def", "true", "false", "and", "or", "not"));
     private final ArrayList<String> operators = new ArrayList<>(List.of("+", "-", "*", "/", "=", "==", "<", ">", "<=", ">=", "!=", "!", "%", "+=", "-="));
     private final ArrayList<String> separators = new ArrayList<>(List.of("(", ")", "{", "}", "[", "]", ",", ";", " ", "\n"));
 
-    public MyScanner(String fileName) {
+    public MyScanner(String fileName) throws FileNotFoundException {
         this.programFileName = fileName;
         this.symbolTable = new SymbolTable(50);
         this.pif = new PIF();
+        this.finiteAutomaton = new FiniteAutomaton("FA_int.in", "FA_id.in");
     }
 
     public SymbolTable getSymbolTable() {
@@ -27,8 +30,12 @@ public class MyScanner {
         return String.valueOf(this.pif);
     }
 
-    private boolean isNumericalConstant(String value) {
-        return value.matches("^(-?[1-9][0-9]*)|0$");
+//    private boolean isNumericalConstant(String value) {
+//        return value.matches("^(-?[1-9][0-9]*)|0$");
+//    }
+
+    private boolean isNumericalConstant(String value) throws FileNotFoundException {
+        return finiteAutomaton.verifySequence(value, this.finiteAutomaton.getIntFile());
     }
 
     private boolean isCharConstant(String value) {
@@ -39,12 +46,16 @@ public class MyScanner {
         return value.matches("^\"[a-zA-Z0-9 ]*\"$");
     }
 
-    private boolean isConstant(String value) {
+    private boolean isConstant(String value) throws FileNotFoundException {
         return isNumericalConstant(value) || isCharConstant(value) || isStringConstant(value);
     }
 
-    private boolean isIdentifier(String value) {
-        return value.matches("^[a-zA-Z_]([a-zA-Z0-9_]*)$");
+//    private boolean isIdentifier(String value) {
+//        return value.matches("^[a-zA-Z_]([a-zA-Z0-9_]*)$");
+//    }
+
+    private boolean isIdentifier(String value) throws FileNotFoundException {
+        return finiteAutomaton.verifySequence(value, this.finiteAutomaton.getIdFile());
     }
 
     private boolean isOperator(String token) {

@@ -21,12 +21,12 @@ public class PIF {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Pair<String, Pair<Integer, Integer>> tokensPosition : this.pif) {
-            stringBuilder.append(tokensPosition.key)
+            stringBuilder.append(tokensPosition.value1)
                     .append(" : ")
                     .append("[")
-                    .append(tokensPosition.value.getKey())
+                    .append(tokensPosition.value2.getValue1())
                     .append(", ")
-                    .append(tokensPosition.value.getValue())
+                    .append(tokensPosition.value2.getValue2())
                     .append("]")
                     .append("\n");
         }

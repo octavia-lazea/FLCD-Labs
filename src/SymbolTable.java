@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class SymbolTable {
 
@@ -57,11 +55,11 @@ public class SymbolTable {
         Pair<Integer, Integer> result = new Pair<>(-1, -1);
         int pos = hash(key);
         if (this.elements.get(pos).contains(key)){
-            result.key = pos;
+            result.value1 = pos;
             for (int i=0; i<this.elements.get(pos).size(); i++){
                 if (Objects.equals(this.elements.get(pos).get(i), key))
                 {
-                    result.value = i;
+                    result.value2 = i;
                     return result;
                 }
             }

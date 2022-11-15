@@ -1,37 +1,37 @@
 public class Pair<K, V> {
-    K key;
-    V value;
+    K value1;
+    V value2;
 
-    public Pair(K key, V value) {
-        this.key = key;
-        this.value = value;
+    public Pair(K value1, V value2) {
+        this.value1 = value1;
+        this.value2 = value2;
     }
 
     public Pair() {
 
     }
 
-    public K getKey() {
-        return this.key;
+    public K getValue1() {
+        return this.value1;
     }
 
-    public V getValue() {
-        return this.value;
+    public V getValue2() {
+        return this.value2;
     }
 
-    public void setKey(K key) {
-        this.key = key;
+    public void setValue1(K value1) {
+        this.value1 = value1;
     }
 
-    public void setValue(V value) {
-        this.value = value;
+    public void setValue2(V value2) {
+        this.value2 = value2;
     }
 
     @Override
     public String toString() {
         return "Pair{" +
-                "key=" + key +
-                ", value=" + value +
+                "value1=" + value1 +
+                ", value2=" + value2 +
                 '}';
     }
 }
