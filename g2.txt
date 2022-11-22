@@ -1,0 +1,21 @@
+program,decllist,declaration,type,arraydecl,type1,stmtlist,stmt,simplstmt,structsmt,assignstmt,expression,term,factor,iostmt,ifstmt,whilestmt,condition,relation
+start,end,integer,char,string,list,read,write,id,const,if,else,while,for,var,def,true,false,and,or,not,+,-,*,/,=,<,<=,>,>=,!,.,(,),[,],{,},:,;
+program
+program -> start stmtlist end
+decllist -> declaration | declaration ; declist
+declaration -> var type id
+type -> type1 | arraydecl
+type1 -> integer | char | string | boolean
+arraydecl -> list < type1 > ( const )
+stmtlist -> stmt | stmt ; stmtlist
+stmt -> simplstmt | structstmt
+simplstmt -> assignstmt | iostmt
+assignstmt -> id = expression
+iostmt -> read ( id ) | write ( id )
+expression -> expression + term | term
+term -> term * factor | factor
+factor -> ( expression ) | id | const
+ifstmt -> if ( condition ) then { stmtlist } else { stmtlist }
+whilestmt -> while ( condition ) { stmtlist }
+condition -> expression relation expression
+relation -> < | > | <= | >= | == | !=

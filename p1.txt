@@ -1,3 +1,4 @@
+start
 var integer nr1;
 var integer nr2;
 nr1 = 2;
@@ -9,3 +10,4 @@ else { write(nr2);}
 if (nr1 % 3 == 0) then {
 nr1 += 1;
 }
+end
