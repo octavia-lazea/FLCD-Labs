@@ -66,4 +66,7 @@ public class Grammar {
         return stringBuilder.toString();
     }
 
+    boolean checkCFG(){
+        return this.nonterminals.containsAll(this.productions.keySet());
+    }
 }

@@ -93,13 +93,15 @@ public class Main {
 //        }
 
         Grammar grammar = new Grammar("g2.txt");
-        System.out.println("Nonterminals");
+        System.out.println(">> Nonterminals");
         grammar.getNonterminals().forEach(System.out::println);
-        System.out.println("Terminals");
+        System.out.println(">> Terminals");
         grammar.getTerminals().forEach(System.out::println);
-        System.out.println("Start");
+        System.out.println(">> Start");
         System.out.println(grammar.getS());
-        System.out.println("Productions");
+        System.out.println(">> Productions");
         System.out.println(grammar.printProductions());
+        System.out.println(">> CFG Check");
+        System.out.println(grammar.checkCFG());
     }
 }
