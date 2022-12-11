@@ -55,6 +55,10 @@ public class Grammar {
         }
     }
 
+    public ArrayList<String> getProduction(String nonterminal){
+        return this.productions.get(nonterminal);
+    }
+
     String printProductions(){
         StringBuilder stringBuilder = new StringBuilder();
         productions.forEach((K,V) -> {
@@ -68,5 +72,13 @@ public class Grammar {
 
     boolean checkCFG(){
         return this.nonterminals.containsAll(this.productions.keySet());
+    }
+
+    boolean isTerminal(String element){
+        return this.terminals.stream().anyMatch(terminal -> terminal.equals(element));
+    }
+
+    boolean isNonterminal(String element){
+        return this.nonterminals.stream().anyMatch(nonterminal -> nonterminal.equals(element));
     }
 }

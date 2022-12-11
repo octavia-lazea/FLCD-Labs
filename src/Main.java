@@ -92,16 +92,20 @@ public class Main {
 //            }
 //        }
 
-        Grammar grammar = new Grammar("g2.txt");
-        System.out.println(">> Nonterminals");
-        grammar.getNonterminals().forEach(System.out::println);
-        System.out.println(">> Terminals");
-        grammar.getTerminals().forEach(System.out::println);
-        System.out.println(">> Start");
-        System.out.println(grammar.getS());
-        System.out.println(">> Productions");
-        System.out.println(grammar.printProductions());
-        System.out.println(">> CFG Check");
-        System.out.println(grammar.checkCFG());
+      // Grammar grammar = new Grammar("g1.txt");
+//        System.out.println(">> Nonterminals");
+//        grammar.getNonterminals().forEach(System.out::println);
+//        System.out.println(">> Terminals");
+//        grammar.getTerminals().forEach(System.out::println);
+//        System.out.println(">> Start");
+//        System.out.println(grammar.getS());
+//        System.out.println(">> Productions");
+//        System.out.println(grammar.printProductions());
+//        System.out.println(">> CFG Check");
+//        System.out.println(grammar.checkCFG());
+
+        Parser parser = new Parser("aa", "g1.txt");
+        parser.parse();
+        System.out.println(parser.toString());
     }
 }
