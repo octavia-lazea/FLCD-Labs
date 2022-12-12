@@ -1,0 +1,7 @@
+A,B,C,D
+a,b,c,d
+A
+A -> a b C | a B d | a A D
+B -> b B
+C -> d
+D -> a | b

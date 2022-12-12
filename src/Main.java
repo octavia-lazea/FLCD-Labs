@@ -92,7 +92,7 @@ public class Main {
 //            }
 //        }
 
-      // Grammar grammar = new Grammar("g1.txt");
+       Grammar grammar = new Grammar("g3.txt");
 //        System.out.println(">> Nonterminals");
 //        grammar.getNonterminals().forEach(System.out::println);
 //        System.out.println(">> Terminals");
@@ -104,8 +104,8 @@ public class Main {
 //        System.out.println(">> CFG Check");
 //        System.out.println(grammar.checkCFG());
 
-        Parser parser = new Parser("aa", "g1.txt");
+        Parser parser = new Parser("a a b a", grammar);
         parser.parse();
-        System.out.println(parser.toString());
+       // System.out.println(parser);
     }
 }

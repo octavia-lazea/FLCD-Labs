@@ -1,7 +1,4 @@
-A,B
+S
 a,b,c
-A
-A -> a A
-A -> b B
-B -> a A
-B -> c
+S
+S -> a S b S | a S | c
