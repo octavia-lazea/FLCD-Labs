@@ -11,7 +11,7 @@ public class Parser {
     private String state;
     private Integer position;
 
-    public Parser(String sequence, Grammar grammar) throws FileNotFoundException {
+    public Parser(String sequence, Grammar grammar) {
         this.sequence = new ArrayList<>();
         this.sequence.addAll(Arrays.stream(sequence.split(" ")).toList());
         this.grammar = grammar;
@@ -155,7 +155,9 @@ public class Parser {
         else {
             System.out.println("Sequence accepted");
             System.out.println(printWorkingStack());
-            //TODO print table output
+            ParserOutput parserOutput = new ParserOutput(this.workingStack, this.grammar);
+            System.out.print(parserOutput.getOutputAsString());
+
         }
     }
 

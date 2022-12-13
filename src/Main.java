@@ -121,8 +121,8 @@ public class Main {
     }
 
     public static void testParser() throws FileNotFoundException {
-        Grammar grammar = new Grammar("g3.txt");
-        Parser parser = new Parser("a a b d a", grammar);
+        Grammar grammar = new Grammar("g1.txt");
+        Parser parser = new Parser("a c b c", grammar);
         parser.parse();
         // System.out.println(parser);
     }
