@@ -21,6 +21,14 @@ public class Parser {
         this.position = 0;
     }
 
+    public ArrayList<Pair<String, Integer>> getWorkingStack() {
+        return workingStack;
+    }
+
+    public Grammar getGrammar(){
+        return grammar;
+    }
+
     private void expand() {
         System.out.println("--> expand");
         // the head of the input stack is a non-terminal
@@ -146,6 +154,7 @@ public class Parser {
             System.out.println("Error");
         else {
             System.out.println("Sequence accepted");
+            System.out.println(printWorkingStack());
             //TODO print table output
         }
     }
