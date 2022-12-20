@@ -1,0 +1,3 @@
+start
+var integer a = 2;
+end

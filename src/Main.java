@@ -6,9 +6,9 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 
         // testST();
-        // testScanner();
+         testScanner();
         // testFA();
-        // testGrammar();
+         //testGrammar();
 
         testParser();
     }
@@ -28,7 +28,7 @@ public class Main {
     }
 
     public static void testScanner() throws FileNotFoundException {
-        MyScanner myScanner = new MyScanner("p1.txt");
+        MyScanner myScanner = new MyScanner("p4.txt");
         try {
             myScanner.scan();
         } catch (FileNotFoundException e) {
@@ -107,7 +107,7 @@ public class Main {
     }
 
     public static void testGrammar() throws FileNotFoundException {
-        Grammar grammar = new Grammar("g3.txt");
+        Grammar grammar = new Grammar("g2.txt");
         System.out.println(">> Nonterminals");
         grammar.getNonterminals().forEach(System.out::println);
         System.out.println(">> Terminals");
@@ -122,7 +122,7 @@ public class Main {
 
     public static void testParser() throws FileNotFoundException {
         Grammar grammar = new Grammar("g1.txt");
-        Parser parser = new Parser("a c b c", grammar);
+        Parser parser = new Parser("seq.txt", "out1.txt", grammar);
         parser.parse();
         // System.out.println(parser);
     }

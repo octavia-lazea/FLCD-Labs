@@ -11,7 +11,7 @@ public class MyScanner {
     private final String programFileName;
 
     private final FiniteAutomaton finiteAutomaton;
-    private final ArrayList<String> reservedWords = new ArrayList<>(List.of("integer", "char", "string", "list", "read", "write", "const", "if", "then", "else", "while", "for", "var", "def", "true", "false", "and", "or", "not"));
+    private final ArrayList<String> reservedWords = new ArrayList<>(List.of("integer", "char", "string", "list", "read", "write", "const", "if", "then", "else", "while", "for", "var", "def", "true", "false", "and", "or", "not", "start", "end"));
     private final ArrayList<String> operators = new ArrayList<>(List.of("+", "-", "*", "/", "=", "==", "<", ">", "<=", ">=", "!=", "!", "%", "+=", "-="));
     private final ArrayList<String> separators = new ArrayList<>(List.of("(", ")", "{", "}", "[", "]", ",", ";", " ", "\n"));
 

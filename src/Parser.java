@@ -1,7 +1,10 @@
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Parser {
     private final Grammar grammar;
@@ -10,15 +13,29 @@ public class Parser {
     private final ArrayList<Pair<String, Integer>> workingStack;
     private String state;
     private Integer position;
+    private String sequenceFile;
 
-    public Parser(String sequence, Grammar grammar) {
+    private String outputFile;
+
+    public Parser(String sequenceFile, String outputFile, Grammar grammar) throws FileNotFoundException {
         this.sequence = new ArrayList<>();
-        this.sequence.addAll(Arrays.stream(sequence.split(" ")).toList());
+       // this.sequence.addAll(Arrays.stream(sequence.split(" ")).toList());
         this.grammar = grammar;
+        this.sequenceFile = sequenceFile;
+        this.outputFile = outputFile;
         this.inputStack = new ArrayList<>(List.of(this.grammar.getS()));
         this.workingStack = new ArrayList<>();
         this.state = "q";
         this.position = 0;
+        readSequenceFromFile();
+    }
+
+    private void readSequenceFromFile() throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File(this.sequenceFile));
+        while (scanner.hasNextLine()){
+            String character = scanner.nextLine();
+            this.sequence.add(character);
+        }
     }
 
     public ArrayList<Pair<String, Integer>> getWorkingStack() {
@@ -64,8 +81,6 @@ public class Parser {
         temp.add(nt.getValue1());
         temp.addAll(this.inputStack);
         this.inputStack = temp;
-
-
     }
 
     private void anotherTry() {
@@ -95,34 +110,6 @@ public class Parser {
         }
 
     }
-//    private void anotherTry() {
-//        Pair<String, Integer> currentProduction = popWorkingStack(); // the string = non-terminal
-//         if (this.grammar.getNonterminals().contains(currentProduction.value1)){
-//             var productions = this.grammar.getProductions();
-//
-//             for (var p :productions.entrySet()){
-//                 if (p.getKey().contains(currentProduction.value1)){
-//                     if (p.getValue().size() >= currentProduction.value2 + 1){
-//                         popWorkingStack();
-//                         workingStack.add(new Pair<>(currentProduction.value1, currentProduction.value2 + 1));
-//                         inputStack.removeAll(Collections.singleton(p.getValue().get(currentProduction.value2 - 1)));
-//                         inputStack.add(p.getValue().get(currentProduction.value2 - 1));
-//                         this.state = "q";
-//                     }
-//                     else {
-//                         if (this.position == 0 && currentProduction.value1.equals(this.grammar.getS()))
-//                             this.state = "e";
-//                         else {
-//                             inputStack.removeAll(Collections.singleton(p.getValue().get(currentProduction.value2 - 1)));
-//                             inputStack.add(currentProduction.value1);
-//                         }
-//                     }
-//                 }
-//             }
-//
-//         }
-//    }
-
 
     private void success() {
         System.out.println("--> success");
@@ -156,6 +143,7 @@ public class Parser {
             System.out.println("Sequence accepted");
             System.out.println(printWorkingStack());
             ParserOutput parserOutput = new ParserOutput(this.workingStack, this.grammar);
+            writeToFile(parserOutput.getOutputAsString());
             System.out.print(parserOutput.getOutputAsString());
 
         }
@@ -181,6 +169,15 @@ public class Parser {
         StringBuilder stringBuilder = new StringBuilder();
         this.workingStack.forEach(pair -> stringBuilder.append("(").append(pair.value1).append(" ,").append(pair.value2).append(")\n"));
         return stringBuilder.toString();
+    }
+
+    public void writeToFile(String output) {
+        try (PrintStream printStream = new PrintStream(this.outputFile)) {
+            printStream.println(output);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
